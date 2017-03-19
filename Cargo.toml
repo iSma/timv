@@ -1,0 +1,11 @@
+[package]
+name = "timv"
+version = "0.1.0"
+description = "Terminal image viewer"
+authors = ["Ismaïl Senhaji <ismail.senhaji@gmail.com>"]
+
+[dependencies]
+clap = {version = "*", default-features = false}
+image = "*"
+itertools = "*"
+termion = "*"
