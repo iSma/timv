@@ -1,10 +1,10 @@
-use image;
 use image::{GenericImageView, DynamicImage};
+use image::imageops::FilterType;
 use itertools::Itertools;
 
-use {Spec, Pixel, Image};
+use crate::{Spec, Pixel, Image};
 
-static RESIZE_FILTER: image::FilterType = image::FilterType::Nearest;
+static RESIZE_FILTER: FilterType = FilterType::Nearest;
 
 pub fn pixelize(image: &DynamicImage, spec: Spec) -> Image {
     let (w, h) = size(image, spec);
@@ -12,10 +12,10 @@ pub fn pixelize(image: &DynamicImage, spec: Spec) -> Image {
 
     let pixels = (0..h).cartesian_product(0..w)
         .map(|(y, x)| [
-             image.get_pixel(x*2, y*2).data,
-             image.get_pixel(x*2+1, y*2).data,
-             image.get_pixel(x*2, y*2+1).data,
-             image.get_pixel(x*2+1, y*2+1).data,
+             image.get_pixel(x*2, y*2).0,
+             image.get_pixel(x*2+1, y*2).0,
+             image.get_pixel(x*2, y*2+1).0,
+             image.get_pixel(x*2+1, y*2+1).0,
         ])
         .map(|block| match spec.block {
             1 => do_pixel_1(&block),

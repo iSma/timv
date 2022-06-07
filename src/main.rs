@@ -1,41 +1,36 @@
-extern crate clap;
-extern crate image;
-extern crate timv;
-extern crate termion;
-
 use std::path::Path;
-use clap::{App, Arg};
+use clap::{Command, Arg};
 use termion::terminal_size;
 
 fn main() {
-    let matches = App::new(env!("CARGO_PKG_NAME"))
+    let matches = Command::new(env!("CARGO_PKG_NAME"))
         .version(env!("CARGO_PKG_VERSION"))
         .author(env!("CARGO_PKG_AUTHORS"))
         .about(env!("CARGO_PKG_DESCRIPTION"))
-        .arg(Arg::with_name("IMAGE")
+        .arg(Arg::new("IMAGE")
             .help("Image to display")
             .required(true))
-        .arg(Arg::with_name("width")
-            .short("w")
+        .arg(Arg::new("width")
+            .short('w')
             .long("width")
             .help("Maximum output width  (defaults to terminal width)")
             .takes_value(true)
             .display_order(10))
-        .arg(Arg::with_name("height")
-            .short("h")
+        .arg(Arg::new("height")
+            .short('h')
             .long("height")
             .help("Maximum output height (defaults to terminal height)")
             .takes_value(true)
             .display_order(20))
-        .arg(Arg::with_name("ratio")
-            .short("r")
+        .arg(Arg::new("ratio")
+            .short('r')
             .long("ratio")
             .help("Font width/height ratio")
             .default_value("0.5")
             .takes_value(true)
             .display_order(30))
-        .arg(Arg::with_name("block")
-            .short("b")
+        .arg(Arg::new("block")
+            .short('b')
             .long("block")
             .help("Block size")
             .takes_value(true)
@@ -53,7 +48,7 @@ fn main() {
     }
 }
 
-fn do_main(matches: clap::ArgMatches) -> Result<String, &str> {
+fn do_main(matches: clap::ArgMatches) -> Result<String, &'static str> {
     let image = matches.value_of("IMAGE").unwrap();
     let image = image::open(&Path::new(image))
         .map_err(|_| "Can't open image")?;

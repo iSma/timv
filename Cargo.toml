@@ -1,11 +1,12 @@
 [package]
+edition = "2021"
 name = "timv"
-version = "0.1.0"
+version = "0.2.0"
 description = "Terminal image viewer"
 authors = ["Ismaïl Senhaji <ismail.senhaji@gmail.com>"]
 
 [dependencies]
-clap = {version = "~2.32.0", default-features = false}
-image = "~0.20.1"
-itertools = "~0.7.11"
-termion = "~1.5.1"
+clap = "3.1"
+image = "0.24"
+itertools = "0.10"
+termion = "1.5"
